@@ -1,0 +1,19 @@
+INFO: Parsing log file: ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/malformed.log
+INFO: Successfully parsed 3 log entries from ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/malformed.log
+INFO: Successfully parsed 3 log entries
+INFO: Analyzing log entries
+INFO: Analysis completed successfully
+{
+  "stats": {
+    "timeRange": {
+      "start": "2024-01-15 08:23:14",
+      "end": "2024-01-15 08:23:18"
+    },
+    "totalLines": 3,
+    "totalErrors": 1,
+    "totalWarnings": 1,
+    "totalInfo": 1,
+    "uniqueIPs": 0,
+    "uniqueUsers": 0
+  }
+}

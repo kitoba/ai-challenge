@@ -1,0 +1,13 @@
+<div class="employee-card" [class.selected]="selected" [class.inactive]="!employee?.active">
+  <div class="header">
+    <h3>{{ employee?.name }}</h3>
+    <span class="status" [class.inactive-text]="!employee?.active">
+      {{ employee?.active ? 'Active' : 'Inactive' }}
+    </span>
+  </div>
+
+  <p class="title">{{ employee?.title }}</p>
+  <p class="department" *ngIf="employee?.department">Dept: {{ employee?.department }}</p>
+
+  <button type="button" class="select-btn" (click)="handleSelect()">Select</button>
+</div>

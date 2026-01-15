@@ -1,0 +1,252 @@
+[
+  {
+    "id": 1,
+    "name": "EmployeeService",
+    "unitType": "service",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/services/employeeService.js: defines service 'EmployeeService' with methods loadEmployees, getEmployeeById, calculateAverageSalary, addSkillToEmployee.",
+    "responsibility": "Loads employee data with caching, retrieves an employee by id, calculates average salary of a list, and adds a skill to a specific employee.",
+    "inputs": [
+      "successCallback",
+      "errorCallback",
+      "id",
+      "employees",
+      "employeeId",
+      "skill"
+    ],
+    "outputs": [
+      "calls successCallback with employee array",
+      "calls errorCallback with error object",
+      "returns employee object or null",
+      "returns numeric average salary",
+      "returns boolean indicating skill addition success"
+    ],
+    "stateUsage": [
+      "window.employeeCache",
+      "window.lastLoadTime",
+      "window.APP_CONFIG.dataUrl",
+      "$http service"
+    ],
+    "sideEffects": [
+      "console.log / console.error",
+      "network request via $http.get",
+      "writes to global window.employeeCache and window.lastLoadTime",
+      "mutates employee.skills array"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "FilterService",
+    "unitType": "service",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/services/filterService.js: defines service 'FilterService' with methods buildSearchIndex, searchEmployees, matchesSearch, filterByDepartment.",
+    "responsibility": "Builds a searchable text index for employees, performs text search, checks individual employee matches, and filters employees by department.",
+    "inputs": [
+      "employees",
+      "callback",
+      "searchText",
+      "department"
+    ],
+    "outputs": [
+      "returns void (buildSearchIndex)",
+      "returns filtered employee array (searchEmployees)",
+      "returns boolean (matchesSearch)",
+      "returns filtered array or null (filterByDepartment)"
+    ],
+    "stateUsage": [
+      "internal variable searchIndex",
+      "$timeout service"
+    ],
+    "sideEffects": [
+      "asynchronous execution via $timeout",
+      "populates internal searchIndex object"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "employeeCard",
+    "unitType": "directive",
+    "selector": "employee-card",
+    "bindings": {
+      "inputs": [
+        "employee",
+        "onSelect",
+        "isSelected"
+      ],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "<div class=\"employee-card\" ng-class=\"{'selected': isSelected({employee: employee}), 'inactive': !employee.active}\">...</div>",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/directives/employeeCard.js: returns directive definition object with restrict 'E', isolated scope, template string, and link function handling selectCard and $watch on employee.active.",
+    "responsibility": "Renders an employee card UI, invokes a selection callback, highlights the card on click, and dims the card when the employee is inactive.",
+    "inputs": [
+      "employee (object)",
+      "onSelect (function)",
+      "isSelected (function)"
+    ],
+    "outputs": [
+      "calls onSelect callback with employee"
+    ],
+    "stateUsage": [
+      "scope.employee",
+      "element DOM"
+    ],
+    "sideEffects": [
+      "adds/removes CSS class 'highlight' on the card element",
+      "sets opacity style when employee.active becomes false",
+      "uses console indirectly via Angular bindings (none in code)"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "MainController",
+    "unitType": "controller",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/controllers/mainController.js: defines controller 'MainController' injecting $scope, EmployeeService, FilterService, $timeout and implements init, applyFilters, applySorting, selection handling, export, and a $watch on searchText.",
+    "responsibility": "Initializes the app by loading employees, builds a search index, applies filters and sorting, manages employee selection, exports selected employees, and reacts to search input changes.",
+    "inputs": [
+      "$scope",
+      "EmployeeService",
+      "FilterService",
+      "$timeout"
+    ],
+    "outputs": [
+      "populates $scope.employees, $scope.displayedEmployees, $scope.selectedEmployees",
+      "alerts user on errors or export actions",
+      "logs messages to console"
+    ],
+    "stateUsage": [
+      "$scope variables (employees, displayedEmployees, etc.)",
+      "window.APP_CONFIG (dataUrl, maxExportSize)",
+      "EmployeeService methods",
+      "FilterService methods",
+      "document.getElementById('loading')"
+    ],
+    "sideEffects": [
+      "DOM manipulation (show/hide loading div, alerts)",
+      "console.log / console.error",
+      "network request via EmployeeService.loadEmployees",
+      "asynchronous timers via $timeout"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "customCurrency",
+    "unitType": "pipe",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/filters/currencyFormat.js: defines filter 'customCurrency' that formats a numeric input as a US dollar string with commas and two decimals.",
+    "responsibility": "Formats a numeric value into a currency string with a leading '$', thousands separators, and two decimal places.",
+    "inputs": [
+      "input (numeric or string)"
+    ],
+    "outputs": [
+      "formatted currency string"
+    ],
+    "stateUsage": [],
+    "sideEffects": []
+  },
+  {
+    "id": 6,
+    "name": "customDate",
+    "unitType": "pipe",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/filters/dateFormat.js: defines filter 'customDate' that converts a YYYY-MM-DD string into 'Mon DD, YYYY' format.",
+    "responsibility": "Converts an ISO‑like date string (YYYY‑MM‑DD) into a human‑readable format with abbreviated month name.",
+    "inputs": [
+      "input (string)"
+    ],
+    "outputs": [
+      "formatted date string"
+    ],
+    "stateUsage": [],
+    "sideEffects": []
+  },
+  {
+    "id": 7,
+    "name": "AppModuleDefinition",
+    "unitType": "other",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/app.js: creates Angular module 'employeeApp' with no dependencies.",
+    "responsibility": "Defines the root AngularJS module for the application.",
+    "inputs": [],
+    "outputs": [],
+    "stateUsage": [],
+    "sideEffects": []
+  },
+  {
+    "id": 8,
+    "name": "GlobalConfigAndCache",
+    "unitType": "other",
+    "selector": "",
+    "bindings": {
+      "inputs": [],
+      "outputs": []
+    },
+    "lifecycleHooks": [],
+    "templateHints": "",
+    "parent": "",
+    "childComponents": [],
+    "evidence": "js/app.js: sets window.APP_CONFIG with dataUrl, defaultSort, maxExportSize; initializes window.employeeCache and window.lastLoadTime to null.",
+    "responsibility": "Provides global configuration values and cache placeholders used by services and controllers.",
+    "inputs": [],
+    "outputs": [],
+    "stateUsage": [
+      "window.APP_CONFIG",
+      "window.employeeCache",
+      "window.lastLoadTime"
+    ],
+    "sideEffects": [
+      "assigns properties on the global window object"
+    ]
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "id": 5,
+    "firstName": "Robert",
+    "lastName": "Anderson",
+    "email": "robert.anderson@nationwide.com",
+    "department": "Engineering",
+    "role": "DevOps Engineer",
+    "location": "Austin",
+    "hireDate": "2016-09-18",
+    "salary": 105000,
+    "active": false,
+    "skills": [
+      "Docker",
+      "Jenkins",
+      "Terraform",
+      "Linux"
+    ]
+  },
+  {
+    "id": 8,
+    "firstName": "Lisa",
+    "lastName": "Taylor",
+    "email": "lisa.taylor@nationwide.com",
+    "department": "Engineering",
+    "role": "QA Engineer",
+    "location": "Columbus",
+    "hireDate": "2017-08-30",
+    "salary": 78000,
+    "active": true,
+    "skills": [
+      "Selenium",
+      "Testing",
+      "Automation",
+      "Python"
+    ]
+  },
+  {
+    "id": 17,
+    "firstName": "Matthew",
+    "lastName": "Lopez",
+    "email": "matthew.lopez@nationwide.com",
+    "department": "Engineering",
+    "role": "Data Engineer",
+    "location": "Austin",
+    "hireDate": "2018-02-28",
+    "salary": 102000,
+    "active": true,
+    "skills": [
+      "Spark",
+      "Hadoop",
+      "Python",
+      "ETL"
+    ]
+  }
+]

@@ -1,0 +1,178 @@
+# Runtime Verification Specification
+# Challenge 2: Perl → Python Migration
+
+adapter: cli
+
+lifecycle:
+  setup: "pip install -e . || pip install -r requirements.txt || true"
+  verify: "python log_analyzer.py --help || python3 log_analyzer.py --help"
+  cleanup: "rm -rf __pycache__ *.pyc .pytest_cache"
+
+# Main test data location
+test_data_dir: "../test-inputs"
+golden_output_dir: "../expected-outputs"
+
+tests:
+  # Basic functionality
+  - name: "help_message"
+    command: "python log_analyzer.py --help"
+    expect_exit_code: 0
+    expect_stdout_contains:
+      - "usage:"
+      - "--stats"
+      - "--errors"
+      - "--ips"
+    timeout: 5
+
+  - name: "stats_output_text"
+    command: "python log_analyzer.py ../test-inputs/sample.log --stats"
+    expect_exit_code: 0
+    expect_stdout_contains:
+      - "Total lines"
+      - "Error count"
+      - "Unique IPs"
+    timeout: 10
+
+  - name: "stats_output_json"
+    command: "python log_analyzer.py ../test-inputs/sample.log --stats --json"
+    expect_exit_code: 0
+    expect_stdout_json_matches: "../expected-outputs/sample-stats.json"
+    expect_json_sorted_keys: true
+    timeout: 10
+
+  - name: "errors_by_module"
+    command: "python log_analyzer.py ../test-inputs/sample.log --errors"
+    expect_exit_code: 0
+    expect_stdout_contains:
+      - "auth.py"
+      - "database.py"
+    timeout: 10
+
+  - name: "errors_json"
+    command: "python log_analyzer.py ../test-inputs/sample.log --errors --json"
+    expect_exit_code: 0
+    expect_stdout_json_matches: "../expected-outputs/sample-errors.json"
+    expect_json_sorted_keys: true
+    timeout: 10
+
+  - name: "ip_frequency"
+    command: "python log_analyzer.py ../test-inputs/sample.log --ips"
+    expect_exit_code: 0
+    expect_stdout_contains:
+      - "192.168"
+      - "10.0"
+    timeout: 10
+
+  - name: "ip_frequency_json"
+    command: "python log_analyzer.py ../test-inputs/sample.log --ips --json"
+    expect_exit_code: 0
+    expect_stdout_json_matches: "../expected-outputs/sample-ips.json"
+    expect_json_sorted_keys: true
+    timeout: 10
+
+  # Edge cases
+  - name: "handles_empty_log"
+    command: "python log_analyzer.py ../test-inputs/empty.log --stats"
+    expect_exit_code: 0
+    expect_stdout_contains: ["Total lines: 0"]
+    timeout: 5
+
+  - name: "handles_malformed_lines"
+    command: "python log_analyzer.py ../test-inputs/malformed.log --stats"
+    expect_exit_code: 0
+    description: "Should gracefully skip malformed lines"
+    timeout: 5
+
+  - name: "handles_large_file"
+    command: "python log_analyzer.py ../test-inputs/large.log --stats"
+    expect_exit_code: 0
+    timeout: 30
+    description: "Should handle large files without crashing"
+
+  # Output determinism (critical!)
+  - name: "deterministic_json_output"
+    command: |
+      python log_analyzer.py ../test-inputs/sample.log --stats --json > /tmp/run1.json &&
+      python log_analyzer.py ../test-inputs/sample.log --stats --json > /tmp/run2.json &&
+      diff /tmp/run1.json /tmp/run2.json
+    expect_exit_code: 0
+    description: "JSON output must be deterministic (same order every time)"
+    timeout: 10
+
+  - name: "sorted_dict_keys"
+    command: "python log_analyzer.py ../test-inputs/sample.log --errors --json | python -c 'import sys, json; d = json.load(sys.stdin); print(list(d.keys()) == sorted(d.keys()))'"
+    expect_stdout_contains: ["True"]
+    description: "Dictionary keys must be sorted alphabetically"
+
+# Type checking (modern Python requirement)
+type_checking:
+  - name: "mypy_strict"
+    command: "mypy log_analyzer.py --strict"
+    expect_exit_code: 0
+    optional: false
+    description: "Must pass mypy strict type checking"
+
+  - name: "no_any_types"
+    command: "grep -r 'Any' *.py || exit 0"
+    expect_stdout_empty: true
+    description: "Should not use Any type (defeats purpose of type hints)"
+
+# Code quality checks
+quality_checks:
+  - name: "uses_type_hints"
+    command: "grep -E 'def .+\\(' *.py | grep -c ':.+->'"
+    expect_stdout_nonzero: true
+    description: "Functions should have type hints"
+
+  - name: "uses_dataclasses"
+    command: "grep -c '@dataclass' *.py || echo 0"
+    expect_stdout_nonzero: true
+    description: "Should use dataclasses for structured data"
+
+  - name: "uses_pathlib"
+    command: "grep -c 'from pathlib import Path' *.py || echo 0"
+    expect_stdout_nonzero: true
+    description: "Should use pathlib for file handling"
+
+  - name: "uses_context_managers"
+    command: "grep -c 'with open' *.py || echo 0"
+    expect_stdout_nonzero: true
+    description: "Should use 'with open()' context managers"
+
+  - name: "no_perl_artifacts"
+    command: "grep -E '\\$\\w+|@\\w+|%\\w+' *.py || exit 0"
+    expect_stdout_empty: true
+    description: "Should not have Perl-style variable syntax"
+
+# Performance benchmarks
+performance:
+  execution_time:
+    - command: "python log_analyzer.py ../test-inputs/small.log --stats"
+      max_seconds: 1
+      iterations: 10
+      description: "Small file should process quickly"
+
+    - command: "python log_analyzer.py ../test-inputs/large.log --stats"
+      max_seconds: 10
+      iterations: 3
+      description: "Large file (1M lines) should process reasonably"
+
+  memory:
+    command: "python log_analyzer.py ../test-inputs/large.log --stats"
+    max_mb: 256
+    description: "Should not load entire file into memory"
+
+# Success criteria
+success_criteria:
+  all_functional_tests_pass: true
+  type_checking_pass: true
+  performance_acceptable: true
+  output_deterministic: true
+
+# Scoring
+scoring:
+  functional_correctness: 40
+  type_safety: 20
+  code_quality: 20
+  performance: 10
+  output_determinism: 10

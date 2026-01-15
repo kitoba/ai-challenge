@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus",
+    "hireDate": "2015-03-15",
+    "salary": 95000,
+    "active": true,
+    "skills": [
+      "Java",
+      "Python",
+      "AWS"
+    ]
+  },
+  {
+    "id": 8,
+    "firstName": "Lisa",
+    "lastName": "Taylor",
+    "email": "lisa.taylor@nationwide.com",
+    "department": "Engineering",
+    "role": "QA Engineer",
+    "location": "Columbus",
+    "hireDate": "2017-08-30",
+    "salary": 78000,
+    "active": true,
+    "skills": [
+      "Selenium",
+      "Testing",
+      "Automation",
+      "Python"
+    ]
+  },
+  {
+    "id": 20,
+    "firstName": "Stephanie",
+    "lastName": "Adams",
+    "email": "stephanie.adams@nationwide.com",
+    "department": "Engineering",
+    "role": "Frontend Developer",
+    "location": "Columbus",
+    "hireDate": "2021-04-20",
+    "salary": 85000,
+    "active": true,
+    "skills": [
+      "Angular",
+      "TypeScript",
+      "CSS",
+      "UX"
+    ]
+  }
+]

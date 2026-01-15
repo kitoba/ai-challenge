@@ -1,0 +1,9 @@
+[
+    {
+        "price": 299.99,
+        "name": "Smart Device",
+        "id": 4,
+        "category": "Electronics",
+        "stock": 30
+    }
+]

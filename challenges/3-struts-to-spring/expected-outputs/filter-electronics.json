@@ -1,0 +1,16 @@
+[
+    {
+        "price": 199.99,
+        "name": "Gadget Max",
+        "id": 2,
+        "category": "Electronics",
+        "stock": 45
+    },
+    {
+        "price": 299.99,
+        "name": "Smart Device",
+        "id": 4,
+        "category": "Electronics",
+        "stock": 30
+    }
+]

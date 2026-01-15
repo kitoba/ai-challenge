@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "firstName": "José",
+    "lastName": "García",
+    "email": "jose.garcia@nationwide.com",
+    "phone": "555-0101",
+    "department": "Engineering",
+    "location": "Madrid",
+    "startDate": "2020-01-15",
+    "active": true,
+    "role": "Engineer"
+  },
+  {
+    "id": 2,
+    "firstName": "李",
+    "lastName": "明",
+    "email": "li.ming@nationwide.com",
+    "phone": "555-0102",
+    "department": "Engineering",
+    "location": "Beijing",
+    "startDate": "2020-02-01",
+    "active": true,
+    "role": "Senior Engineer"
+  },
+  {
+    "id": 3,
+    "firstName": "Müller",
+    "lastName": "François",
+    "email": "muller.francois@nationwide.com",
+    "phone": "555-0103",
+    "department": "Design",
+    "location": "Zürich",
+    "startDate": "2019-03-10",
+    "active": true,
+    "role": "Designer"
+  }
+]

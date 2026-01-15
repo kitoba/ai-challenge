@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "John Smith",
+    "email": "john.smith@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus"
+  },
+  {
+    "id": 3,
+    "name": "Michael Chen",
+    "email": "michael.chen@nationwide.com",
+    "department": "Engineering",
+    "role": "Tech Lead",
+    "location": "San Francisco"
+  },
+  {
+    "id": 7,
+    "name": "David Wilson",
+    "email": "david.wilson@nationwide.com",
+    "department": "Sales",
+    "role": "Sales Director",
+    "location": "Chicago"
+  }
+]

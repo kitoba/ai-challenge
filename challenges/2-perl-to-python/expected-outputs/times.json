@@ -1,0 +1,10 @@
+{
+  "requestTimes": {
+    "WebServer": {
+      "average": 89.4,
+      "min": 12,
+      "max": 234,
+      "count": 7
+    }
+  }
+}

@@ -1,0 +1,74 @@
+<div class="main-container">
+  <h1>Employee Directory</h1>
+
+  <div class="counts">
+    <span>Total: {{ getTotalCount() }}</span>
+    <span>Filtered: {{ getFilteredCount() }}</span>
+    <span>Selected: {{ getSelectedCount() }}</span>
+  </div>
+
+  <div id="loading" class="loading" [class.show]="isLoading">Loading...</div>
+
+  <form [formGroup]="filterForm" class="filters" (submit)="$event.preventDefault()">
+    <input type="text" formControlName="searchText" placeholder="Search employees..." />
+
+    <select formControlName="department">
+      <option value="">All Departments</option>
+      <option *ngFor="let d of departments" [value]="d">{{ d }}</option>
+    </select>
+
+    <select formControlName="location">
+      <option value="">All Locations</option>
+      <option *ngFor="let l of locations" [value]="l">{{ l }}</option>
+    </select>
+
+    <label class="active-only">
+      <input type="checkbox" formControlName="activeOnly" /> Active only
+    </label>
+  </form>
+
+  <div class="sort">
+    <label>Sort by
+      <select [value]="sortField" (change)="onSortFieldChange($any($event.target).value)">
+        <option value="name">Name</option>
+        <option value="department">Department</option>
+        <option value="location">Location</option>
+        <option value="title">Title</option>
+      </select>
+    </label>
+    <button type="button" (click)="toggleSortOrder()">Order: {{ sortOrder | uppercase }}</button>
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="exportSelected()">Export Selected</button>
+    <button type="button" (click)="clearSelection()" [disabled]="getSelectedCount() === 0">Clear Selection</button>
+  </div>
+
+  <table class="employee-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Department</th>
+        <th>Location</th>
+        <th>Active</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of displayedEmployees; trackBy: trackById" [class.selected]="isSelected(emp)" (click)="selectEmployee(emp)">
+        <td>
+          <input type="checkbox" [checked]="isSelected(emp)" (click)="$event.stopPropagation(); selectEmployee(emp)" />
+        </td>
+        <td>{{ emp.name }}</td>
+        <td>{{ emp.title }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.location }}</td>
+        <td>{{ emp.active ? 'Yes' : 'No' }}</td>
+      </tr>
+      <tr *ngIf="displayedEmployees.length === 0">
+        <td colspan="6" class="empty">No employees match the filters.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

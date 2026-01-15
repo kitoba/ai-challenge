@@ -1,0 +1,278 @@
+# Runtime Verification Specification
+# Challenge 3: Struts → Spring Boot Migration
+
+adapter: api
+
+lifecycle:
+  setup: "mvn clean install -DskipTests -q"
+  start: "mvn spring-boot:run -q"
+  health: "curl -sf http://localhost:8080/actuator/health || curl -sf http://localhost:8080/api/products"
+  stop: "kill ${PID}"
+  cleanup: "mvn clean -q"
+
+endpoint:
+  url: "http://localhost:8080"
+  ready_pattern: "Started.*Application|Tomcat started on port"
+  startup_timeout: 120
+
+tests:
+  # Health and actuator endpoints (Spring Boot best practice)
+  - name: "actuator_health"
+    method: "GET"
+    path: "/actuator/health"
+    expect_status: 200
+    expect_json_subset:
+      status: "UP"
+    optional: true
+    description: "Spring Boot actuator health endpoint"
+
+  # Core API functionality
+  - name: "list_all_products"
+    method: "GET"
+    path: "/api/products"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/list-all.json"
+    expect_content_type: "application/json"
+    timeout: 10
+
+  - name: "get_product_by_id_1"
+    method: "GET"
+    path: "/api/products/1"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/get-product-1.json"
+
+  - name: "get_product_by_id_2"
+    method: "GET"
+    path: "/api/products/2"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/get-product-2.json"
+
+  # Search functionality
+  - name: "search_widget"
+    method: "GET"
+    path: "/api/products/search?q=widget"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/search-widget.json"
+
+  - name: "search_device"
+    method: "GET"
+    path: "/api/products/search?q=device"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/search-device.json"
+
+  - name: "search_empty_results"
+    method: "GET"
+    path: "/api/products/search?q=nonexistent"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/search-empty.json"
+
+  # Filtering
+  - name: "filter_by_category_tools"
+    method: "GET"
+    path: "/api/products/filter?category=Tools"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/filter-tools.json"
+
+  - name: "filter_by_category_electronics"
+    method: "GET"
+    path: "/api/products/filter?category=Electronics"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/filter-electronics.json"
+
+  # Sorting
+  - name: "sort_by_name"
+    method: "GET"
+    path: "/api/products/sort?field=name"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/sort-name.json"
+
+  - name: "sort_by_price_asc"
+    method: "GET"
+    path: "/api/products/sort?field=price&order=asc"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/sort-price-asc.json"
+
+  - name: "sort_by_price_desc"
+    method: "GET"
+    path: "/api/products/sort?field=price&order=desc"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/sort-price-desc.json"
+
+  - name: "sort_by_category"
+    method: "GET"
+    path: "/api/products/sort?field=category"
+    expect_status: 200
+    expect_json_file: "../expected-outputs/sort-category.json"
+
+  # Error handling
+  - name: "product_not_found_404"
+    method: "GET"
+    path: "/api/products/999"
+    expect_status: 404
+    expect_json_subset:
+      error: "Product not found"
+    description: "Should return 404 for non-existent product"
+
+  - name: "invalid_category_400"
+    method: "GET"
+    path: "/api/products/filter?category="
+    expect_status: 400
+    optional: true
+    description: "Should validate empty category parameter"
+
+  # Data integrity
+  - name: "all_products_have_required_fields"
+    method: "GET"
+    path: "/api/products"
+    expect_status: 200
+    expect_json_schema:
+      type: "array"
+      items:
+        required: ["id", "name", "category", "price"]
+        properties:
+          id:
+            type: "integer"
+          name:
+            type: "string"
+          category:
+            type: "string"
+          price:
+            type: "number"
+
+  # Concurrency test
+  - name: "concurrent_requests"
+    type: "load"
+    method: "GET"
+    path: "/api/products"
+    concurrent_requests: 10
+    expect_all_status: 200
+    description: "Should handle concurrent requests correctly"
+
+# Performance benchmarks
+performance:
+  startup_time:
+    max_seconds: 60
+    measured_from: "mvn spring-boot:run start"
+    measured_until: "Application started"
+    description: "Spring Boot app should start within 60 seconds"
+
+  response_time:
+    warmup_requests: 50
+    endpoints:
+      - path: "/api/products"
+        max_ms: 200
+        percentile: 95
+        samples: 200
+        description: "List all products p95"
+
+      - path: "/api/products/1"
+        max_ms: 50
+        percentile: 95
+        samples: 200
+        description: "Get single product p95"
+
+      - path: "/api/products/search?q=widget"
+        max_ms: 100
+        percentile: 95
+        samples: 100
+        description: "Search p95"
+
+  throughput:
+    endpoint: "/api/products"
+    min_requests_per_second: 100
+    duration_seconds: 10
+    description: "Should handle at least 100 req/s"
+
+  memory:
+    max_mb: 512
+    measured_at: "60 seconds after startup"
+    description: "Runtime memory usage"
+
+# Code quality checks (static analysis)
+quality_checks:
+  - name: "no_struts_imports"
+    command: "find src -name '*.java' -exec grep -l 'import org.apache.struts' {} \\; | wc -l"
+    expect_stdout: "0"
+    description: "Should not import any Struts classes"
+
+  - name: "uses_spring_annotations"
+    command: "grep -r '@RestController\\|@Service\\|@Repository' src/main/java | wc -l"
+    expect_stdout_nonzero: true
+    description: "Should use Spring annotations"
+
+  - name: "uses_spring_data_jpa"
+    command: "grep -r 'extends JpaRepository' src/main/java | wc -l"
+    expect_stdout_nonzero: true
+    description: "Should use Spring Data JPA repositories"
+
+  - name: "no_action_classes"
+    command: "find src -name '*.java' -exec grep -l 'extends Action' {} \\; | wc -l"
+    expect_stdout: "0"
+    description: "Should not have Struts Action classes"
+
+  - name: "no_jsp_files"
+    command: "find src -name '*.jsp' | wc -l"
+    expect_stdout: "0"
+    description: "Should not have JSP files (REST API)"
+
+  - name: "has_openapi_docs"
+    command: "grep -r '@OpenAPIDefinition\\|@Operation\\|springdoc' src pom.xml | wc -l"
+    expect_stdout_nonzero: true
+    optional: true
+    description: "Should have OpenAPI/Swagger documentation"
+
+# Modern Java features (bonus points)
+modern_features:
+  - name: "uses_records"
+    command: "grep -r 'public record' src/main/java | wc -l"
+    expect_stdout_nonzero: true
+    optional: true
+    description: "Uses Java 17+ records for DTOs"
+
+  - name: "uses_var"
+    command: "grep -r '\\bvar\\b' src/main/java | wc -l"
+    expect_stdout_nonzero: true
+    optional: true
+    description: "Uses Java 10+ var keyword"
+
+  - name: "uses_streams"
+    command: "grep -r '\\.stream()\\|\\.filter(\\|\\.map(' src/main/java | wc -l"
+    expect_stdout_nonzero: true
+    description: "Uses Java 8+ Stream API"
+
+# Database verification
+database_tests:
+  - name: "h2_console_accessible"
+    method: "GET"
+    path: "/h2-console"
+    expect_status: 200
+    optional: true
+    description: "H2 console should be accessible in dev mode"
+
+  - name: "data_persists_across_requests"
+    type: "sequence"
+    steps:
+      - method: "GET"
+        path: "/api/products/1"
+        expect_status: 200
+        save_response: "product1_first"
+      - method: "GET"
+        path: "/api/products/1"
+        expect_status: 200
+        expect_response_equals: "product1_first"
+    description: "Data should be consistent across requests"
+
+# Success criteria
+success_criteria:
+  all_functional_tests_pass: true
+  performance_benchmarks_pass: true
+  no_struts_artifacts: true
+  spring_boot_conventions: true
+
+# Scoring weights
+scoring:
+  functional_correctness: 35
+  api_design: 20
+  performance: 20
+  code_quality: 15
+  modern_features: 10

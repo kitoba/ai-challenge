@@ -1,0 +1,124 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus",
+    "hireDate": "2015-03-15",
+    "salary": 95000,
+    "active": true,
+    "skills": [
+      "Java",
+      "Python",
+      "AWS"
+    ]
+  },
+  {
+    "id": 4,
+    "firstName": "Emily",
+    "lastName": "Davis",
+    "email": "emily.davis@nationwide.com",
+    "department": "Marketing",
+    "role": "Marketing Manager",
+    "location": "Columbus",
+    "hireDate": "2019-11-05",
+    "salary": 82000,
+    "active": true,
+    "skills": [
+      "Digital Marketing",
+      "Analytics",
+      "SEO"
+    ]
+  },
+  {
+    "id": 6,
+    "firstName": "Jennifer",
+    "lastName": "Martinez",
+    "email": "jennifer.martinez@nationwide.com",
+    "department": "HR",
+    "role": "HR Specialist",
+    "location": "Columbus",
+    "hireDate": "2020-02-14",
+    "salary": 65000,
+    "active": true,
+    "skills": [
+      "Recruiting",
+      "Workday",
+      "Employee Relations"
+    ]
+  },
+  {
+    "id": 8,
+    "firstName": "Lisa",
+    "lastName": "Taylor",
+    "email": "lisa.taylor@nationwide.com",
+    "department": "Engineering",
+    "role": "QA Engineer",
+    "location": "Columbus",
+    "hireDate": "2017-08-30",
+    "salary": 78000,
+    "active": true,
+    "skills": [
+      "Selenium",
+      "Testing",
+      "Automation",
+      "Python"
+    ]
+  },
+  {
+    "id": 12,
+    "firstName": "Patricia",
+    "lastName": "Moore",
+    "email": "patricia.moore@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus",
+    "hireDate": "2014-12-03",
+    "salary": 98000,
+    "active": false,
+    "skills": [
+      "C#",
+      ".NET",
+      "Azure",
+      "SQL Server"
+    ]
+  },
+  {
+    "id": 16,
+    "firstName": "Ashley",
+    "lastName": "King",
+    "email": "ashley.king@nationwide.com",
+    "department": "Finance",
+    "role": "Controller",
+    "location": "Columbus",
+    "hireDate": "2013-10-09",
+    "salary": 115000,
+    "active": true,
+    "skills": [
+      "Accounting",
+      "Financial Reporting",
+      "SAP"
+    ]
+  },
+  {
+    "id": 20,
+    "firstName": "Stephanie",
+    "lastName": "Adams",
+    "email": "stephanie.adams@nationwide.com",
+    "department": "Engineering",
+    "role": "Frontend Developer",
+    "location": "Columbus",
+    "hireDate": "2021-04-20",
+    "salary": 85000,
+    "active": true,
+    "skills": [
+      "Angular",
+      "TypeScript",
+      "CSS",
+      "UX"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+
+======================================================================
+  Log Analysis Report
+======================================================================
+======================================================================
+  User Login Summary
+======================================================================david.wilson@nationwide.com                1 logins
+emily.davis@nationwide.com                 1 logins
+james.brown@nationwide.com                 1 logins
+john.smith@nationwide.com                  1 logins
+lisa.taylor@nationwide.com                 1 logins
+michael.chen@nationwide.com                1 logins
+robert.anderson@nationwide.com             1 logins
+sarah.johnson@nationwide.com               1 logins

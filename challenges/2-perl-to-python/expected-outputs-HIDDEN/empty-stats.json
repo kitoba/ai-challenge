@@ -1,0 +1,19 @@
+INFO: Parsing log file: ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/empty.log
+INFO: Successfully parsed 0 log entries from ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/empty.log
+INFO: Successfully parsed 0 log entries
+INFO: Analyzing log entries
+INFO: Analysis completed successfully
+{
+  "stats": {
+    "timeRange": {
+      "start": "",
+      "end": ""
+    },
+    "totalLines": 0,
+    "totalErrors": 0,
+    "totalWarnings": 0,
+    "totalInfo": 0,
+    "uniqueIPs": 0,
+    "uniqueUsers": 0
+  }
+}

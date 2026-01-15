@@ -1,0 +1,10 @@
+{
+  "errors": {
+    "API": 4,
+    "Auth": 2,
+    "Database": 2,
+    "FileIO": 3,
+    "Network": 3,
+    "WebServer": 1
+  }
+}

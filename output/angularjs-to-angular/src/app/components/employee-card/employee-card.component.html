@@ -1,0 +1,11 @@
+<div class="employee-card" [class.selected]="selected" [class.inactive]="!employee?.active" (click)="handleSelect()">
+  <div class="header">
+    <h3>{{ employee?.name }}</h3>
+    <span class="department">{{ employee?.department }}</span>
+  </div>
+  <div class="details">
+    <div><strong>Salary:</strong> {{ employee?.salary | customCurrency }}</div>
+    <div><strong>Start:</strong> {{ employee?.startDate | customDate }}</div>
+    <div><strong>Skills:</strong> {{ employee?.skills?.join(', ') || 'None' }}</div>
+  </div>
+</div>

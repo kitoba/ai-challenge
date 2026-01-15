@@ -1,0 +1,19 @@
+{
+  "total": 20,
+  "byDepartment": {
+    "Engineering": 9,
+    "Sales": 4,
+    "Marketing": 3,
+    "HR": 2,
+    "Finance": 2
+  },
+  "byLocation": {
+    "Columbus": 7,
+    "New York": 3,
+    "San Francisco": 3,
+    "Austin": 3,
+    "Chicago": 2
+  },
+  "active": 18,
+  "inactive": 2
+}

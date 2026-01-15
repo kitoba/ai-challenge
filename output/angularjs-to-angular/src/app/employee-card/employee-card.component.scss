@@ -1,0 +1,64 @@
+.employee-card {
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: #fff;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.employee-card.selected {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.employee-card.inactive {
+  opacity: 0.6;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.status {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.inactive-text {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.title {
+  margin: 0;
+  color: #555;
+}
+
+.department {
+  margin: 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.select-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.select-btn:hover {
+  background: #115293;
+}

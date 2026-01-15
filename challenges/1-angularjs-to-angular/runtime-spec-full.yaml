@@ -1,0 +1,140 @@
+# Runtime Verification Specification
+# Challenge 1: AngularJS → Angular Migration
+
+adapter: webapp
+
+lifecycle:
+  setup: "npm install"
+  start: "npm start -- --port 4200"
+  health: "curl -f http://localhost:4200/ || exit 1"
+  stop: "kill ${PID}"
+  cleanup: "rm -rf node_modules dist .angular"
+
+endpoint:
+  url: "http://localhost:4200"
+  ready_pattern: "Compiled successfully|webpack compiled|Application bundle generation complete"
+  startup_timeout: 90
+
+tests:
+  # Basic functionality
+  - name: "homepage_loads"
+    type: "http"
+    method: "GET"
+    path: "/"
+    expect_status: 200
+    expect_body_contains:
+      - "<app-root>"
+      - "Employee Directory"
+    timeout: 10
+
+  - name: "app_bootstraps"
+    type: "http"
+    method: "GET"
+    path: "/"
+    expect_status: 200
+    expect_body_not_contains:
+      - "ng-app"
+      - "ng-controller"
+      - "angular.module"
+    description: "Verify no AngularJS artifacts in rendered HTML"
+
+  # Static assets
+  - name: "test_data_accessible"
+    type: "http"
+    method: "GET"
+    path: "/test-inputs/employees.json"
+    expect_status: 200
+    expect_json_schema:
+      type: "array"
+      minItems: 20
+      items:
+        required: ["id", "firstName", "lastName", "email"]
+        properties:
+          id:
+            type: "integer"
+          firstName:
+            type: "string"
+          lastName:
+            type: "string"
+          email:
+            type: "string"
+
+  - name: "main_bundle_loads"
+    type: "http"
+    method: "GET"
+    path: "/main-*.js"
+    expect_status: 200
+    expect_content_type: "application/javascript"
+
+  # Performance requirements
+  - name: "initial_load_fast"
+    type: "http"
+    method: "GET"
+    path: "/"
+    expect_status: 200
+    max_response_time_ms: 1000
+    description: "Homepage should load in under 1 second"
+
+  - name: "api_calls_fast"
+    type: "http"
+    method: "GET"
+    path: "/test-inputs/employees.json"
+    expect_status: 200
+    max_response_time_ms: 100
+    description: "JSON data should load quickly"
+
+# Performance benchmarks
+performance:
+  startup_time:
+    max_seconds: 60
+    measured_from: "start command execution"
+    measured_until: "ready_pattern match in stdout"
+    description: "App should compile and start within 60 seconds"
+
+  response_time:
+    endpoints:
+      - path: "/"
+        max_ms: 500
+        percentile: 95
+        samples: 50
+        description: "Homepage p95 response time"
+
+      - path: "/test-inputs/employees.json"
+        max_ms: 100
+        percentile: 95
+        samples: 100
+        description: "Data loading p95 response time"
+
+  memory:
+    max_mb: 1024
+    measured_at: "60 seconds after startup"
+    description: "Dev server memory usage should be reasonable"
+
+# Behavioral tests (functional equivalence)
+behavioral_tests:
+  - name: "loads_all_employees"
+    description: "Verify app loads all 20 employees"
+    requires: "selenium"
+    script: "tests/e2e/test_employee_list.py"
+
+  - name: "filters_by_department"
+    description: "Filter by Engineering department"
+    requires: "selenium"
+    script: "tests/e2e/test_filtering.py"
+
+  - name: "sorts_employees"
+    description: "Sort by last name ascending"
+    requires: "selenium"
+    script: "tests/e2e/test_sorting.py"
+
+# Success criteria
+success_criteria:
+  all_tests_pass: true
+  performance_benchmarks_pass: true
+  behavioral_tests_optional: true
+
+# Scoring weights
+scoring:
+  tests_pass: 50
+  performance_pass: 30
+  behavioral_pass: 20

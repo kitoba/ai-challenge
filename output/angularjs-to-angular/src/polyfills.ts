@@ -1,0 +1,1 @@
+// Minimal polyfills; can be left empty for modern browsers

@@ -1,0 +1,12 @@
+{
+  "name": "employee-directory-angularjs-legacy",
+  "version": "1.0.0",
+  "description": "Legacy AngularJS Employee Directory - Modernization Challenge",
+  "scripts": {
+    "serve": "http-server -p 8080 -c-1",
+    "test": "echo 'Legacy app - no tests' && exit 0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

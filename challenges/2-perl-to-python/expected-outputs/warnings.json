@@ -1,0 +1,9 @@
+{
+  "warnings": {
+    "Cache": 1,
+    "Database": 1,
+    "Disk": 2,
+    "Memory": 3,
+    "Security": 3
+  }
+}

@@ -1,0 +1,348 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus",
+    "hireDate": "2015-03-15",
+    "salary": 95000,
+    "active": true,
+    "skills": [
+      "Java",
+      "Python",
+      "AWS"
+    ]
+  },
+  {
+    "id": 2,
+    "firstName": "Sarah",
+    "lastName": "Johnson",
+    "email": "sarah.johnson@nationwide.com",
+    "department": "Sales",
+    "role": "Account Manager",
+    "location": "New York",
+    "hireDate": "2018-07-22",
+    "salary": 75000,
+    "active": true,
+    "skills": [
+      "Salesforce",
+      "Negotiation",
+      "CRM"
+    ]
+  },
+  {
+    "id": 3,
+    "firstName": "Michael",
+    "lastName": "Chen",
+    "email": "michael.chen@nationwide.com",
+    "department": "Engineering",
+    "role": "Tech Lead",
+    "location": "San Francisco",
+    "hireDate": "2012-01-10",
+    "salary": 135000,
+    "active": true,
+    "skills": [
+      "Architecture",
+      "Kubernetes",
+      "Go",
+      "Microservices"
+    ]
+  },
+  {
+    "id": 4,
+    "firstName": "Emily",
+    "lastName": "Davis",
+    "email": "emily.davis@nationwide.com",
+    "department": "Marketing",
+    "role": "Marketing Manager",
+    "location": "Columbus",
+    "hireDate": "2019-11-05",
+    "salary": 82000,
+    "active": true,
+    "skills": [
+      "Digital Marketing",
+      "Analytics",
+      "SEO"
+    ]
+  },
+  {
+    "id": 5,
+    "firstName": "Robert",
+    "lastName": "Anderson",
+    "email": "robert.anderson@nationwide.com",
+    "department": "Engineering",
+    "role": "DevOps Engineer",
+    "location": "Austin",
+    "hireDate": "2016-09-18",
+    "salary": 105000,
+    "active": false,
+    "skills": [
+      "Docker",
+      "Jenkins",
+      "Terraform",
+      "Linux"
+    ]
+  },
+  {
+    "id": 6,
+    "firstName": "Jennifer",
+    "lastName": "Martinez",
+    "email": "jennifer.martinez@nationwide.com",
+    "department": "HR",
+    "role": "HR Specialist",
+    "location": "Columbus",
+    "hireDate": "2020-02-14",
+    "salary": 65000,
+    "active": true,
+    "skills": [
+      "Recruiting",
+      "Workday",
+      "Employee Relations"
+    ]
+  },
+  {
+    "id": 7,
+    "firstName": "David",
+    "lastName": "Wilson",
+    "email": "david.wilson@nationwide.com",
+    "department": "Sales",
+    "role": "Sales Director",
+    "location": "Chicago",
+    "hireDate": "2010-05-20",
+    "salary": 125000,
+    "active": true,
+    "skills": [
+      "Leadership",
+      "Strategy",
+      "Enterprise Sales"
+    ]
+  },
+  {
+    "id": 8,
+    "firstName": "Lisa",
+    "lastName": "Taylor",
+    "email": "lisa.taylor@nationwide.com",
+    "department": "Engineering",
+    "role": "QA Engineer",
+    "location": "Columbus",
+    "hireDate": "2017-08-30",
+    "salary": 78000,
+    "active": true,
+    "skills": [
+      "Selenium",
+      "Testing",
+      "Automation",
+      "Python"
+    ]
+  },
+  {
+    "id": 9,
+    "firstName": "James",
+    "lastName": "Brown",
+    "email": "james.brown@nationwide.com",
+    "department": "Finance",
+    "role": "Financial Analyst",
+    "location": "New York",
+    "hireDate": "2021-01-12",
+    "salary": 88000,
+    "active": true,
+    "skills": [
+      "Excel",
+      "Financial Modeling",
+      "SQL"
+    ]
+  },
+  {
+    "id": 10,
+    "firstName": "Maria",
+    "lastName": "Garcia",
+    "email": "maria.garcia@nationwide.com",
+    "department": "Engineering",
+    "role": "Junior Developer",
+    "location": "Austin",
+    "hireDate": "2022-06-01",
+    "salary": 72000,
+    "active": true,
+    "skills": [
+      "JavaScript",
+      "React",
+      "Node.js"
+    ]
+  },
+  {
+    "id": 11,
+    "firstName": "William",
+    "lastName": "Lee",
+    "email": "william.lee@nationwide.com",
+    "department": "Marketing",
+    "role": "Content Strategist",
+    "location": "San Francisco",
+    "hireDate": "2019-04-08",
+    "salary": 76000,
+    "active": true,
+    "skills": [
+      "Content Marketing",
+      "Copywriting",
+      "SEO"
+    ]
+  },
+  {
+    "id": 12,
+    "firstName": "Patricia",
+    "lastName": "Moore",
+    "email": "patricia.moore@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus",
+    "hireDate": "2014-12-03",
+    "salary": 98000,
+    "active": false,
+    "skills": [
+      "C#",
+      ".NET",
+      "Azure",
+      "SQL Server"
+    ]
+  },
+  {
+    "id": 13,
+    "firstName": "Christopher",
+    "lastName": "White",
+    "email": "christopher.white@nationwide.com",
+    "department": "Sales",
+    "role": "Account Executive",
+    "location": "Boston",
+    "hireDate": "2020-09-15",
+    "salary": 70000,
+    "active": true,
+    "skills": [
+      "B2B Sales",
+      "Presentation",
+      "CRM"
+    ]
+  },
+  {
+    "id": 14,
+    "firstName": "Jessica",
+    "lastName": "Hall",
+    "email": "jessica.hall@nationwide.com",
+    "department": "HR",
+    "role": "Talent Acquisition Lead",
+    "location": "New York",
+    "hireDate": "2016-03-22",
+    "salary": 92000,
+    "active": true,
+    "skills": [
+      "Recruiting",
+      "LinkedIn Recruiter",
+      "Interviewing"
+    ]
+  },
+  {
+    "id": 15,
+    "firstName": "Daniel",
+    "lastName": "Robinson",
+    "email": "daniel.robinson@nationwide.com",
+    "department": "Engineering",
+    "role": "Architect",
+    "location": "San Francisco",
+    "hireDate": "2011-07-14",
+    "salary": 145000,
+    "active": true,
+    "skills": [
+      "System Design",
+      "Cloud Architecture",
+      "Security"
+    ]
+  },
+  {
+    "id": 16,
+    "firstName": "Ashley",
+    "lastName": "King",
+    "email": "ashley.king@nationwide.com",
+    "department": "Finance",
+    "role": "Controller",
+    "location": "Columbus",
+    "hireDate": "2013-10-09",
+    "salary": 115000,
+    "active": true,
+    "skills": [
+      "Accounting",
+      "Financial Reporting",
+      "SAP"
+    ]
+  },
+  {
+    "id": 17,
+    "firstName": "Matthew",
+    "lastName": "Lopez",
+    "email": "matthew.lopez@nationwide.com",
+    "department": "Engineering",
+    "role": "Data Engineer",
+    "location": "Austin",
+    "hireDate": "2018-02-28",
+    "salary": 102000,
+    "active": true,
+    "skills": [
+      "Spark",
+      "Hadoop",
+      "Python",
+      "ETL"
+    ]
+  },
+  {
+    "id": 18,
+    "firstName": "Amanda",
+    "lastName": "Hill",
+    "email": "amanda.hill@nationwide.com",
+    "department": "Marketing",
+    "role": "Brand Manager",
+    "location": "Chicago",
+    "hireDate": "2017-05-17",
+    "salary": 89000,
+    "active": true,
+    "skills": [
+      "Brand Strategy",
+      "Marketing Campaigns",
+      "Adobe Creative Suite"
+    ]
+  },
+  {
+    "id": 19,
+    "firstName": "Joshua",
+    "lastName": "Scott",
+    "email": "joshua.scott@nationwide.com",
+    "department": "Sales",
+    "role": "Regional Sales Manager",
+    "location": "Dallas",
+    "hireDate": "2015-11-30",
+    "salary": 108000,
+    "active": true,
+    "skills": [
+      "Team Management",
+      "Sales Strategy",
+      "Forecasting"
+    ]
+  },
+  {
+    "id": 20,
+    "firstName": "Stephanie",
+    "lastName": "Adams",
+    "email": "stephanie.adams@nationwide.com",
+    "department": "Engineering",
+    "role": "Frontend Developer",
+    "location": "Columbus",
+    "hireDate": "2021-04-20",
+    "salary": 85000,
+    "active": true,
+    "skills": [
+      "Angular",
+      "TypeScript",
+      "CSS",
+      "UX"
+    ]
+  }
+]

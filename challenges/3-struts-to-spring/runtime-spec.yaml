@@ -1,0 +1,55 @@
+# Simplified Runtime Verification Specification
+# Challenge 3: Struts → Spring Boot Migration (Working Version)
+
+adapter: api
+
+lifecycle:
+  setup: "mvn clean install -DskipTests -q || mvn clean install -DskipTests"
+  start: "mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8080"
+  health: "curl -sf http://localhost:8080/api/products"
+  stop: "kill ${PID}"
+  cleanup: "mvn clean -q || true"
+
+endpoint:
+  url: "http://localhost:8080"
+  ready_pattern: "Started.*Application|Tomcat started"
+  startup_timeout: 120
+
+tests:
+  # Core API functionality
+  - name: "list_all_products"
+    method: "GET"
+    path: "/api/products"
+    expect_status: 200
+    expect_json_file: "../../challenge-repo/challenges/3-struts-to-spring/expected-outputs/list-all.json"
+    timeout: 10
+
+  - name: "get_product_1"
+    method: "GET"
+    path: "/api/products/1"
+    expect_status: 200
+    expect_json_file: "../../challenge-repo/challenges/3-struts-to-spring/expected-outputs/get-product-1.json"
+
+  - name: "get_product_2"
+    method: "GET"
+    path: "/api/products/2"
+    expect_status: 200
+    expect_json_file: "../../challenge-repo/challenges/3-struts-to-spring/expected-outputs/get-product-2.json"
+
+  - name: "filter_electronics"
+    method: "GET"
+    path: "/api/products/filter?category=Electronics"
+    expect_status: 200
+    expect_json_file: "../../challenge-repo/challenges/3-struts-to-spring/expected-outputs/filter-electronics.json"
+
+  - name: "filter_tools"
+    method: "GET"
+    path: "/api/products/filter?category=Tools"
+    expect_status: 200
+    expect_json_file: "../../challenge-repo/challenges/3-struts-to-spring/expected-outputs/filter-tools.json"
+
+  # Error handling
+  - name: "product_not_found"
+    method: "GET"
+    path: "/api/products/999"
+    expect_status: 404

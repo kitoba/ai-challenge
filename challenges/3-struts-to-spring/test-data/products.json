@@ -1,0 +1,7 @@
+[
+  {"id": 1, "name": "Widget Pro", "category": "Tools", "price": 29.99, "stock": 150},
+  {"id": 2, "name": "Gadget Max", "category": "Electronics", "price": 199.99, "stock": 45},
+  {"id": 3, "name": "Tool Kit", "category": "Tools", "price": 89.99, "stock": 80},
+  {"id": 4, "name": "Smart Device", "category": "Electronics", "price": 299.99, "stock": 30},
+  {"id": 5, "name": "Basic Widget", "category": "Tools", "price": 9.99, "stock": 200}
+]

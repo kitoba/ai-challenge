@@ -1,0 +1,40 @@
+.employee-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  background: #fff;
+}
+
+.employee-card.selected {
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.4);
+}
+
+.employee-card.inactive {
+  background: #f5f5f5;
+}
+
+.employee-card.highlight {
+  transform: scale(1.01);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.department {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.details {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #333;
+}

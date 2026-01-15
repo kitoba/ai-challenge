@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+
+<struts-config>
+    <!-- Form Bean Definitions -->
+    <form-beans>
+        <form-bean name="productForm" type="com.nationwide.legacy.forms.ProductForm"/>
+        <form-bean name="searchForm" type="com.nationwide.legacy.forms.SearchForm"/>
+    </form-beans>
+
+    <!-- Action Mappings -->
+    <action-mappings>
+        <!-- List all products -->
+        <action path="/listProducts"
+                type="com.nationwide.legacy.actions.ListProductsAction"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/productList.jsp"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+        </action>
+
+        <!-- View single product -->
+        <action path="/viewProduct"
+                type="com.nationwide.legacy.actions.ViewProductAction"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/productDetail.jsp"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+            <forward name="error" path="/WEB-INF/jsp/error.jsp"/>
+        </action>
+
+        <!-- Add product form -->
+        <action path="/addProductForm"
+                type="com.nationwide.legacy.actions.AddProductFormAction"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/productForm.jsp"/>
+        </action>
+
+        <!-- Add product (submit) -->
+        <action path="/addProduct"
+                type="com.nationwide.legacy.actions.AddProductAction"
+                name="productForm"
+                scope="request"
+                validate="false">
+            <forward name="success" path="/listProducts.do" redirect="true"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+            <forward name="error" path="/WEB-INF/jsp/error.jsp"/>
+        </action>
+
+        <!-- Update product form -->
+        <action path="/updateProductForm"
+                type="com.nationwide.legacy.actions.UpdateProductFormAction"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/productForm.jsp"/>
+            <forward name="error" path="/WEB-INF/jsp/error.jsp"/>
+        </action>
+
+        <!-- Update product (submit) -->
+        <action path="/updateProduct"
+                type="com.nationwide.legacy.actions.UpdateProductAction"
+                name="productForm"
+                scope="request"
+                validate="false">
+            <forward name="success" path="/listProducts.do" redirect="true"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+            <forward name="error" path="/WEB-INF/jsp/error.jsp"/>
+        </action>
+
+        <!-- Delete product -->
+        <action path="/deleteProduct"
+                type="com.nationwide.legacy.actions.DeleteProductAction"
+                scope="request">
+            <forward name="success" path="/listProducts.do" redirect="true"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+            <forward name="error" path="/WEB-INF/jsp/error.jsp"/>
+        </action>
+
+        <!-- Search products -->
+        <action path="/searchProducts"
+                type="com.nationwide.legacy.actions.SearchProductsAction"
+                name="searchForm"
+                scope="request"
+                validate="false">
+            <forward name="success" path="/WEB-INF/jsp/productList.jsp"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+        </action>
+
+        <!-- Filter by category -->
+        <action path="/filterByCategory"
+                type="com.nationwide.legacy.actions.FilterByCategoryAction"
+                scope="request">
+            <forward name="success" path="/WEB-INF/jsp/productList.jsp"/>
+            <forward name="json" path="/WEB-INF/jsp/json.jsp"/>
+        </action>
+    </action-mappings>
+
+    <!-- Message Resources -->
+    <message-resources parameter="ApplicationResources"/>
+</struts-config>

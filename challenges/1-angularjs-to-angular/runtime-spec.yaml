@@ -1,0 +1,32 @@
+# Simplified Runtime Verification Specification
+# Challenge 1: AngularJS → Angular Migration (Working Version)
+
+adapter: webapp
+
+lifecycle:
+  setup: "npm install"
+  start: "npm start -- --port 4200"
+  health: "curl -f http://localhost:4200/"
+  stop: "kill ${PID}"
+  cleanup: "rm -rf .angular"
+
+endpoint:
+  url: "http://localhost:4200"
+  ready_pattern: "Compiled successfully|webpack compiled|Application bundle generation complete|Local.*http://localhost:4200"
+  startup_timeout: 120
+
+tests:
+  # Basic functionality
+  - name: "homepage_loads"
+    method: "GET"
+    path: "/"
+    expect_status: 200
+    expect_body_contains:
+      - "<app-root>"
+    timeout: 10
+
+  - name: "test_data_exists"
+    method: "GET"
+    path: "/test-inputs/employees.json"
+    expect_status: 200
+    timeout: 5

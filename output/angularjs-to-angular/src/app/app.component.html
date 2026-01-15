@@ -1,0 +1,36 @@
+<div class="app-container">
+  <h1>Employee Directory</h1>
+
+  <div id="loading" class="loading" *ngIf="loading">Loading...</div>
+
+  <form [formGroup]="form" class="filters">
+    <input type="text" formControlName="searchText" placeholder="Search employees" />
+    <select formControlName="department">
+      <option value="All">All Departments</option>
+      <option value="Engineering">Engineering</option>
+      <option value="HR">HR</option>
+      <option value="Sales">Sales</option>
+      <option value="Marketing">Marketing</option>
+    </select>
+    <select formControlName="sortBy">
+      <option value="name">Sort by Name</option>
+      <option value="salary">Sort by Salary</option>
+      <option value="department">Sort by Department</option>
+    </select>
+  </form>
+
+  <div class="summary">
+    <span>Total: {{ displayedEmployees.length }}</span>
+    <span>Selected: {{ selectedEmployees.length }}</span>
+    <button type="button" (click)="exportSelected()">Export Selected</button>
+  </div>
+
+  <div class="employee-list">
+    <employee-card
+      *ngFor="let employee of displayedEmployees"
+      [employee]="employee"
+      [onSelect]="onSelectEmployee"
+      [isSelected]="isSelected">
+    </employee-card>
+  </div>
+</div>

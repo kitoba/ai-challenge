@@ -1,0 +1,59 @@
+# Simplified Runtime Verification Specification
+# Challenge 2: Perl → Python Migration (Working Version)
+
+adapter: cli
+
+lifecycle:
+  setup: "pip install -r requirements.txt || true"
+  verify: "test -f log_analyzer.py && python log_analyzer.py --help"
+  cleanup: "rm -rf __pycache__ *.pyc"
+
+tests:
+  # Basic functionality
+  - name: "help_message"
+    command: "python log_analyzer.py --help"
+    expect_exit_code: 0
+    expect_stdout_contains:
+      - "usage:"
+      - "--stats"
+      - "--errors"
+    timeout: 5
+
+  - name: "stats_basic"
+    command: "python log_analyzer.py ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/app.log --stats"
+    expect_exit_code: 0
+    expect_stdout_contains:
+      - "Statistics"
+      - "Total"
+    timeout: 10
+
+  - name: "errors_output"
+    command: "python log_analyzer.py ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/app.log --errors"
+    expect_exit_code: 0
+    timeout: 10
+
+  - name: "json_output"
+    command: "python log_analyzer.py ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/app.log --stats --json"
+    expect_exit_code: 0
+    timeout: 10
+
+  - name: "ips_output"
+    command: "python log_analyzer.py ../../../../challenge-repo/challenges/2-perl-to-python/test-inputs/app.log --ips"
+    expect_exit_code: 0
+    timeout: 10
+
+  # HIDDEN edge cases
+  - name: "HIDDEN_empty_log"
+    command: "python log_analyzer.py ../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/empty.log --stats --json"
+    expect_exit_code: 0
+    timeout: 5
+
+  - name: "HIDDEN_large_log"
+    command: "python log_analyzer.py ../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/large.log --stats --json"
+    expect_exit_code: 0
+    timeout: 30
+
+  - name: "HIDDEN_malformed_log"
+    command: "python log_analyzer.py ../../../challenge-repo/challenges/2-perl-to-python/test-inputs/HIDDEN/malformed.log --stats --json"
+    expect_exit_code: 0
+    timeout: 10

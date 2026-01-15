@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john.smith@nationwide.com",
+    "department": "Engineering",
+    "role": "Senior Developer",
+    "location": "Columbus",
+    "hireDate": "2015-03-15",
+    "salary": 95000,
+    "active": true,
+    "skills": [
+      "Java",
+      "Python",
+      "AWS"
+    ]
+  }
+]

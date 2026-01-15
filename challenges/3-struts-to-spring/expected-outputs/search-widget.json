@@ -1,0 +1,16 @@
+[
+    {
+        "price": 29.99,
+        "name": "Widget Pro",
+        "id": 1,
+        "category": "Tools",
+        "stock": 150
+    },
+    {
+        "price": 9.99,
+        "name": "Basic Widget",
+        "id": 5,
+        "category": "Tools",
+        "stock": 200
+    }
+]
